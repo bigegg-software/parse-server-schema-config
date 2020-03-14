@@ -1,6 +1,6 @@
 {
   "name": "@bigegg/parse-server-schema-config",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "parse-server-schema-config",
   "main": "index.js",
   "scripts": {

@@ -33,7 +33,6 @@ class SchemaConfig {
     static async  _getAllSchema(){
         return await Parse.Schema.all(null, { useMasterKey: true })
     }
-
     static _updateIndex(schema, originIndexs, sourceIndexs) {
         
         let originIndexsKey = Object.keys(originIndexs)
@@ -44,6 +43,7 @@ class SchemaConfig {
         let addIndexs = sourceIndexsKey.filter(key => !originIndexsKey.find(v => v == key))
         addIndexs = SchemaConfig._filterDefault(addIndexs, defaultIndex)
         //todo 更新
+        
         deleteIndexs.forEach(key => {
             schema.deleteIndex(key)
         })
@@ -85,21 +85,27 @@ class SchemaConfig {
         })
         return schema
     }
+    static async _deleteSchema(className){
+        let schema = new Parse.Schema(className)
+        await schema.delete()
+
+    }
     static async _updateSchema( className, originSchema, sourceSchema){
         let isUpdate = !!originSchema
-        originSchema =  originSchema || {
-            fields: {},
-            indexes:{}
-        }
+        
+        originSchema = originSchema || {} 
+        originSchema.fields = originSchema.fields || {}  
+        originSchema.indexes = originSchema.indexes|| {} 
         sourceSchema.indexes = sourceSchema.indexes || {}
         sourceSchema.fields = sourceSchema.fields || {}
-
+        
         let schema = new Parse.Schema(className)
         if(!sourceSchema){
             return await schema.delete()
         }
-
+        
         schema = SchemaConfig._updateField(schema, originSchema.fields, sourceSchema.fields)
+        
         schema = SchemaConfig._updateIndex(schema, originSchema.indexes, sourceSchema.indexes)
         if(sourceSchema.CLP){
             schema.setCLP(sourceSchema.CLP)
@@ -113,10 +119,17 @@ class SchemaConfig {
     static async config(schemaList){
         let allSchema = await SchemaConfig._getAllSchema()
         
-        for(let schema of schemaList){
-            let originSchema = allSchema.find(v => v.className == schema.className)
-            await SchemaConfig._updateSchema(schema.className, originSchema, schema)
+        for(let sourceSchema of schemaList){
+            let originSchema = allSchema.find(v => v.className == sourceSchema.className)
+            await SchemaConfig._updateSchema(sourceSchema.className, originSchema, sourceSchema)
         }
+        let sourceSchemas = schemaList.map(v => v.className)
+        let deleteSchemas = allSchema.filter(v => !sourceSchemas.find(name => name == v.className) ).map(v => v.className)
+        deleteSchemas = SchemaConfig._filterDefault(deleteSchemas, Object.keys(_defaultClass))
+        for(let schemaName of deleteSchemas){
+            SchemaConfig._deleteSchema(schemaName)
+        }
+        
 
     }
 }
