@@ -91,7 +91,8 @@ class SchemaConfig {
             fields: {},
             indexes:{}
         }
-        
+        sourceSchema.indexes = sourceSchema.indexes || {}
+        sourceSchema.fields = sourceSchema.fields || {}
 
         let schema = new Parse.Schema(className)
         if(!sourceSchema){
