@@ -1,0 +1,23 @@
+{
+  "name": "@bigegg/parse-server-schema-config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigegg-software/parse-server-schema-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bigegg-software/parse-server-schema-config/issues"
+  },
+  "homepage": "https://github.com/bigegg-software/parse-server-schema-config#readme",
+  "dependencies": {
+    "parse": "^2.11.0"
+  }
+}
