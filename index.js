@@ -1,7 +1,7 @@
 const _types = {
     string: 'addString',
     number: 'addNumber',
-    boolean: 'addBoolen',
+    boolean: 'addBoolean',
     date: 'addDate',
     file: 'addFile',
     array: 'addArray',
