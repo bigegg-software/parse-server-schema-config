@@ -15,7 +15,8 @@ const _types = {
 
 const _defaultClass = {
     _User: ['objectId', 'createdAt', 'updatedAt', 'ACL', 'username', 'password', 'email', 'emailVerified', 'authData'],
-    _Role: ['objectId', 'createdAt', 'updatedAt', 'ACL', 'name', 'users', 'roles']
+    _Role: ['objectId', 'createdAt', 'updatedAt', 'ACL', 'name', 'users', 'roles'],
+    _Session: ['objectId', 'createdAt', 'updatedAt', 'ACL','restricted','user','installationId','sessionToken','expiresAt','createdWith']
 }
 const _defaultKeys = ['objectId', 'createdAt', 'updatedAt', 'ACL']
 const _defaultClassIndex = {
