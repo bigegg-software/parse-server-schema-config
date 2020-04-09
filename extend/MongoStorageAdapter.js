@@ -1,5 +1,5 @@
 const path = require('path')
-let MongoStorageAdapterPath = path.join(__dirname, '..','node_modules', 'parse-server', 'lib', 'Adapters', 'Storage', 'Mongo', 'MongoStorageAdapter.js')
+let MongoStorageAdapterPath = path.join(process.cwd(),'node_modules', 'parse-server', 'lib', 'Adapters', 'Storage', 'Mongo', 'MongoStorageAdapter.js')
 const fs = require('fs')
 if (fs.existsSync(MongoStorageAdapterPath)) {
     const mongoStorageAdapter = require(MongoStorageAdapterPath)
