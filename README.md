@@ -21,7 +21,7 @@
                 targetClass: 'Subject',
             }
 
-        },
+        }
         CLP: {
             addField: {},
             find: { '*': true },

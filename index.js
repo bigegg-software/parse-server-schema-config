@@ -1,3 +1,4 @@
+require('./extend/MongoStorageAdapter')
 const _types = {
     string: 'addString',
     number: 'addNumber',
@@ -25,7 +26,6 @@ const _defaultClassIndex = {
 }
 const _defaultIndex = ['_id_']
 
-let Parse = require('parse/node').Parse; 
 
 class SchemaConfig {
     static  _filterDefault(data, defaultKey) {
