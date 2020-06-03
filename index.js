@@ -1,4 +1,5 @@
 require('./extend/MongoStorageAdapter')
+require('./extend/PostgresStorageAdapter')
 const _types = {
     string: 'addString',
     number: 'addNumber',

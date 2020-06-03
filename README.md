@@ -32,8 +32,9 @@
             delete: { 'role:admin': true },
         },
         indexes: {
-            level4_1: {
+            level4_1: { //如果使用postgres 全局不能重复
                 field: { 'level4': 1 }
+                unique: true
             }
         }
     }
