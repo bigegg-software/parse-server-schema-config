@@ -40,19 +40,23 @@ class SchemaConfig {
         let originIndexsKey = Object.keys(originIndexs)
         let sourceIndexsKey = Object.keys(sourceIndexs)
         let defaultIndex = _defaultClassIndex[schema.className] || _defaultIndex
-        let deleteIndexs = originIndexsKey.filter(key => !sourceIndexsKey.find(v => v == key))
+        let deleteIndexs = originIndexsKey.filter(key => !sourceIndexsKey.find(v => `${schema.className}_${v}` == key))
+
         deleteIndexs = SchemaConfig._filterDefault(deleteIndexs, defaultIndex)
-        let addIndexs = sourceIndexsKey.filter(key => !originIndexsKey.find(v => v == key))
+
+        let addIndexs = sourceIndexsKey.filter(key => !originIndexsKey.find(v => v== `${schema.className}_${key}`))
         addIndexs = SchemaConfig._filterDefault(addIndexs, defaultIndex)
         //todo 更新
         
         deleteIndexs.forEach(key => {
-            schema.deleteIndex(`${schema.className}_${key}`)
+            console.log('delete',key)
+            schema.deleteIndex(`${key}`)
         })
         addIndexs.forEach(key =>{
             if(sourceIndexs[key].unique){
                 sourceIndexs[key].field.__op = 'AddUnique'  
             }
+            console.log('add',`${schema.className}_${key}`, sourceIndexs[key].field)
             
             schema.addIndex(`${schema.className}_${key}`, sourceIndexs[key].field)
     
