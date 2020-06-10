@@ -47,14 +47,14 @@ class SchemaConfig {
         //todo 更新
         
         deleteIndexs.forEach(key => {
-            schema.deleteIndex(key)
+            schema.deleteIndex(`${schema.className}_${key}`)
         })
         addIndexs.forEach(key =>{
             if(sourceIndexs[key].unique){
                 sourceIndexs[key].field.__op = 'AddUnique'  
             }
             
-            schema.addIndex(key, sourceIndexs[key].field)
+            schema.addIndex(`${schema.className}_${key}`, sourceIndexs[key].field)
     
         })
         
